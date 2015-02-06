@@ -1,0 +1,134 @@
+<h1>Design Patterns -- 1 (Strategy Patterns)</h1>
+<h6>Reference：Head First Design Patterns</h6>
+<ul>
+<li>Inheritance</li>
+</ul>
+<p>```java
+public abstract class Duck() {
+    public void fly() { /<em> fly behavior</em>/ };
+}</p>
+<p>public class RedHeadDuck() extends Duck {
+    // nothing
+}</p>
+<p>public class MallardDuck() extends Duck {
+    // nothing
+}
+<code>``
+However, if we want to add a new kind of duck which is not able to fly, ex: RubberDuck. We have to add a new class and</code>@Override<code>the</code>fly()` method.</p>
+<p><code>java
+public class RubberDuck() extends Duck {
+    @Override
+    public fly() {
+        // do nothing
+    }
+}</code>
+Advantage:
+    * If we want to add a new method (ex: <code>quack()</code>)
+<code>java
+public abstract class Duck() {
+    public void fly();
+    public void quack();
+}</code></p>
+<p>Disadvantage:
+    * If there is 80 kinds of duck cannot fly.
+    * We have to check every kinds of duck, and decide wether to override the fly method or not.</p>
+<ul>
+<li>Interface</li>
+</ul>
+<p>```java
+public interface Flyable {
+    public void fly();
+}</p>
+<p>public interface Quackable {
+    public void quack();
+}</p>
+<p>public class RedHeadDuck implements Flyable, Quackable {
+    public void fly() {
+        // fly behavior
+    }
+    public void quack() {
+        // quack behavior
+    }
+} </p>
+<p>public class RubberDuck implementation Quackable {
+    public void quack() {
+        // quack behavior
+    }
+}
+```</p>
+<p>Advantage:
+    * Seperate each kind of duck.</p>
+<p>Disadvantage:
+    * Destroy the code reuse, each <code>fly()</code> might be the same.</p>
+<ul>
+<li>Strategy Pattern
+```java
+public class FlyWithWings implements Flyable {
+    public void fly() {
+        // fly with wings behavior
+    }
+}</li>
+</ul>
+<p>public class NoFly implements Flyable {
+    public void fly() {
+        // nothing
+    }
+}</p>
+<p>public class Quack implements Quackable {
+    public void quack() {
+        // quack
+    }
+}</p>
+<p>public class MuteQuack implements Quackable {
+    public void quack() {
+        // mute, nothing
+    }
+}</p>
+<p>public abstract class Duck {
+    FlyBehavior flyBehavior;
+    QuackBehavior quackBehavior;</p>
+<pre><code>public void performFly() {
+    flyBehavior.fly();
+}
+
+public void performQuack() {
+    quackBehavior.quack();
+}
+</code></pre>
+<p>}</p>
+<p>public class RedHeadDuck extends Duck {
+    public RedHeadDuck() {
+        this.flyBehavior = new FlyWithWings();
+        this.quackBehavior = new Quack();
+    }
+}</p>
+<p>public class RubberDuck extends Duck {
+    public RubberDuck() {
+        this.flyBehavior = new NoFly();
+        this.quackBehavior = new MuteQuack();
+    }
+}</p>
+<p>/////////////////
+// Client side //
+/////////////////</p>
+<p>public void main() {
+    Duck hduck = new RedHeadDuck();
+    hduck.performFly();
+    hduck.performQuack();
+    Duck rduck = new RubberDuck();
+    rduck.performFly();
+    rduck.performQuack();
+}</p>
+<p>```</p>
+<p>Advantage:
+    * Seperate client side's code and the model.</p>
+<p>Disadvantage:
+    * Each behavior means a new class.</p>
+<ul>
+<li>Design Prinsples:<ul>
+<li>Identify the aspects of your application that vary and seperate them from what stays the same.</li>
+<li>Program to an interface(supertype), not to an implementation.</li>
+<li>Favor composition oner inheritance.</li>
+</ul>
+</li>
+</ul>
