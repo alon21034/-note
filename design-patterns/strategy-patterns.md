@@ -2,11 +2,18 @@
 
 ###### Reference：Head First Design Patterns
 
-* Inheritance
+### Design Prinsples:
+* Identify the aspects of your application that **vary** and **seperate them from what stays the same**.
+* **Program to an interface(supertype)**, not to an implementation.
+* Favor **composition** oner inheritance.
+
+### Inheritance
 
 ```java
 public abstract class Duck() {
-	public void fly() { /* fly behavior*/ };
+	public void fly() { 
+		// fly behavior
+	}
 }
 
 public class RedHeadDuck() extends Duck {
@@ -17,7 +24,21 @@ public class MallardDuck() extends Duck {
 	// nothing
 }
 ```
-However, if we want to add a new kind of duck which is not able to fly, ex: RubberDuck. We have to add a new class and `@Override` the `fly()` method.
+
+**Advantage:**
+* It is easy to add a new method (ex: `quack()`)
+
+```java
+public abstract class Duck() {
+	public void fly();
+	public void quack();
+}
+```
+
+**Disadvantage:**
+* If there is 80 kinds of duck cannot fly, we have to **check every kinds of duck, and decide wether to `override` the `fly()` method or not.**
+
+* For example, if we want to add a new kind of duck which is not able to fly, ex: RubberDuck. We have to add a new class and `@Override` the `fly()` method.
 
 ```java
 public class RubberDuck() extends Duck {
@@ -27,20 +48,8 @@ public class RubberDuck() extends Duck {
 	}
 }
 ```
-Advantage:
-	* If we want to add a new method (ex: `quack()`)
-```java
-public abstract class Duck() {
-	public void fly();
-	public void quack();
-}
-```
 
-Disadvantage:
-	* If there is 80 kinds of duck cannot fly.
-	* We have to check every kinds of duck, and decide wether to override the fly method or not.
-
-* Interface
+### Interface
 
 ```java
 public interface Flyable {
@@ -67,13 +76,13 @@ public class RubberDuck implementation Quackable {
 }
 ```
 
-Advantage:
-	* Seperate each kind of duck.
+**Advantage:**
+* Seperate each kind of duck.
 
-Disadvantage:
-	* Destroy the code reuse, each `fly()` might be the same.
+**Disadvantage:**
+* **Destroy the code reuse**, each `fly()` might be the same.
 
-* Strategy Pattern
+### Strategy Pattern
 
 ```java
 public class FlyWithWings implements Flyable {
@@ -141,28 +150,28 @@ public void main() {
 }
 
 ```
+**Feature:**
+* **FlyBehavior** and **QuackBehavior**
 
-Advantage:
-	* Seperate client side's code and the model.
+**Advantage:**
+* Seperate client side's code and the model.
 
-Disadvantage:
-	* Each behavior means a new class.
+> We don't have to change codes in client side anymore.
 
-## Conclusion
-###Design Prinsples:###
-	* Identify the aspects of your application that vary and seperate them from what stays the same.
-	* Program to an interface(supertype), not to an implementation.
-	* Favor composition oner inheritance.
+**Disadvantage:**
+* Every new behavior means a new class.
+
+## Summary
 
 ###Why should I know Strategy Pattern?###
-Short answer: Strategy Patterns makes the code easier to be reused and maintained.
+Short answer: Strategy Patterns makes the code **easier to be reused and maintained**.
 
-By isolating algorithms from client-side implementation, different client applications can share the same implementation of an algorithm.
+By isolating algorithms from client-side implementation, different client applications can **share the same implementation of an algorithm**.
 
-At the same time, by isolating algorithms from each other, maintenance of the code can be done with less impact to other components. From development point of view, the maintenance can be done independently - by different people at different time (or even better, at the same time!)
+At the same time, by isolating algorithms from each other, maintenance of the code can be done with **less impact to other components**. From development point of view, the maintenance can be done independently - by different people at different time (or even better, at the same time!)
 
 ###When should I use Strategy Pattern, and when not to?###
-Theoretically, this pattern should be applied **all the time**.
+Theoretically, this pattern should be applied all the time.
 
 Yet, when time and resource are limited, you might want to think twice before doing the right thing. Poor design does not necessarily comes from poor decisions.
 
