@@ -1,1 +1,8 @@
 *.html
+
+# os x folder attribute
+*.DS_STORE
+
+# temporary files
+*~
+

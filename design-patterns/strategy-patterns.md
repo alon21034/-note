@@ -149,12 +149,21 @@ Disadvantage:
 	* Each behavior means a new class.
 
 ## Conclusion
-
-Design Prinsples:
+###Design Prinsples###:
 	* Identify the aspects of your application that vary and seperate them from what stays the same.
 	* Program to an interface(supertype), not to an implementation.
 	* Favor composition oner inheritance.
 
+###Why should I know Strategy Pattern?###
+Short answer: Strategy Patterns makes the code easier to be reused and maintained.
 
+By isolating algorithms from client-side implementation, different client applications can share the same implementation of an algorithm.
+
+At the same time, by isolating algorithms from each other, maintenance of the code can be done with less impact to other components. From development point of view, the maintenance can be done independently - by different people at different time (or even better, at the same time!)
+
+###When should I use Strategy Pattern, and when not to?###
+Theoretically, this pattern should be applied **all the time**.
+
+Yet, when time and resource are limited, you might want to think twice before doing the right thing. Poor design does not necessarily comes from poor decisions.
 
 
