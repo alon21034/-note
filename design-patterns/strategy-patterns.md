@@ -149,7 +149,7 @@ Disadvantage:
 	* Each behavior means a new class.
 
 ## Conclusion
-###Design Prinsples###:
+###Design Prinsples:###
 	* Identify the aspects of your application that vary and seperate them from what stays the same.
 	* Program to an interface(supertype), not to an implementation.
 	* Favor composition oner inheritance.
